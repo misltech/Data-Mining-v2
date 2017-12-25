@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title> Data Mining v2</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="https://www.cuny.edu/favicon.ico" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+    <link href="css/thumbnail-gallery.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/animation.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Droid+Sans:400,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Zilla+Slab" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="js/ajaxq.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootpag/1.0.7/jquery.bootpag.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.bundle.js"></script>
+    <script src="js/facepp.js"></script>
+    <script src="js/flickr.js"></script>
+    <script src="js/googlemap.js"></script>
+</head>
+
+<body onload="showWarning();">
+    <nav class="navbar">
+        <div class="container" style="width: 90%; background: white; border-bottom-right-radius: 10px;border-bottom-left-radius: 10px;">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>                        
+                </button>
+                <a class="navbar-brand" id="h-title" href="#">Data Mining Using Selfies</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#" id="help">Help</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div id="sbar" class="container text-center " style="background: white;padding: 10px;border-radius: 10px;width: 45%;">
+        <div class="form-inline">
+            <input id="keyword" class="form-control" type="text" placeholder="Keywords: Selfie, People">
+            <input id="location" class="form-control" type="text" placeholder="Location: City, State, Zip" autocomplete="off">
+            <button id="qs" class="btn btn-primary query-submit">Search</button>
+        </div>
+    </div>
+
+    <div class="container" style="text-align:center;margin-top: 15px; padding-bottom: 19px;">
+        <div class="row" style="text-align: center;">
+            <a id="compute" href="#" style="padding: .45rem 1.13rem;background: aliceblue;border-radius: 5px; text-decoration:none;border: 2px solid;font-family: Zilla Slab; width:0.09914529914529914em;"> compute results </a>
+            <a href="javascript:window.location.reload(true)" style="padding: .45rem 1.13rem;background: #FF6666; border-radius: 5px; text-decoration:none;border: 2px solid; margin-left: 5px; color: white;font-family: Zilla Slab; width: 0.03333333333333333em;"> reset </a>
+            <a id="sresults" style="padding: .45rem 1.13rem;background: yellowgreen; border-radius: 5px; text-decoration:none;border: 2px solid; margin-left: 5px; color: white;font-family: Zilla Slab; width: 0.08376068376068375em;"> Results found: </a>
+        
+        
+        </div>
+    </div>
+    <div class="container gallery-container">
+        <div class="tz-gallery">
+            <div class="row" id="photo-result">
+            </div>
+        </div>
+    </div>
+    <div class='container loadercontainer'>
+        <div class='loader'>
+            <div class='loader--dot'></div>
+            <div class='loader--dot'></div>
+            <div class='loader--dot'></div>
+            <div class='loader--dot'></div>
+            <div class='loader--dot'></div>
+            <div class='loader--dot'></div>
+            <!-- <div class='loader--text'></div> -->
+        </div>
+    </div>
+
+    <div id="page-selection" class="text-center"></div>
+
+    <div class="container charts">
+        <canvas id="myChart" style="width:770px; height: 385px; width: 770; margin: 0 auto; padding: 10px; display:block;"></canvas>
+    </div>
+
+    <div class="container chartsdetails" style="margin-top: 25px;">
+        
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div id="helpModal" class="modal fade in">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title"></h4>
+                        </div>
+                        <div class="modal-body">
+                            <p><span style="font-size:20px;"><span style="font-family:comic sans ms,cursive;">How to use:</span></span>
+                            </p>
+                            <ol style="margin-left: 35px;">
+                                <li><span style="font-size:14px;"><span style="font-family:trebuchet ms,helvetica,sans-serif;">Enter a keyword that you want to search. (Multiple keywords are allowed by using a comma)</span></span>
+                                </li>
+                                <li><span style="font-size:14px;"><span style="font-family:trebuchet ms,helvetica,sans-serif;">Enter the location you want to search by &nbsp;(ex: New York)</span></span>
+                                </li>
+                                <li><span style="font-size:14px;"><span style="font-family:trebuchet ms,helvetica,sans-serif;">Then click on search button.</span></span>
+                                </li>
+                            </ol>
+                            <p style="text-align: center;"><span style="font-size:14px;"><strong>All fields have to be completed to search</strong></span></p>
+                            <p><span style="font-size:20px;"><span style="font-family: monospace; font-style: italic;"><span style="font-family:comic sans ms,cursive;">Results</span>:</span>
+                                </span>
+                            </p>
+                            <ul style="margin-left: 35px;">
+                                <li><span style="font-size:14px;"><span style="font-family:trebuchet ms,helvetica,sans-serif;">Data returned from faceplusplus which contains multiple faces will be averaged and labeled with an asterisk</span></span>
+                                </li>
+                                <li><span style="font-size:14px;"><span style="font-family:trebuchet ms,helvetica,sans-serif;">Images that does not have a face will be returned as &quot;Data Unavailable&quot;.</span></span>
+                                </li>
+                            </ul>
+                            <p><span style="font-family:trebuchet ms,helvetica,sans-serif;"><span style="font-size:14px;">Any bugs found will eventually be solved :).</span></span>
+                            </p>
+                        </div>
+                        <div class="modal-footer">
+                            <div class="btn-group">
+                                <button class="btn btn-success" data-dismiss="modal"><span class="glyphicon glyphicon-ok"></span></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="modal fade" id="landingModal" role="dialog">
+                <div class="modal-dialog">
+                    <!-- Modal content-->
+                    <div class="modal-content">
+
+                        <div class="modal-body">
+                            <p style="font-size: 17px; text-align: center; font-family: Zilla Slab;">Due to Google Chrome behaving differently to our intended design. <br>Firefox is recommended for best experience.</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal" style="margin:5px;">Close</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/pagination.js"></script>
+    <script src="js/graphs.js"></script>
+    <script src="js/main.js"></script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDXxwQQFKd1MnsNS7uM2CaZHPdQO6KSeAE&libraries=places&callback=initAutocomplete"
+        async defer></script>
+</body>
+</html>
