@@ -1,8 +1,10 @@
  **Includes more features and automation**
 <br/> *Updated version of this project.* See Data-Mining-v1
 
-This project was created for CUNY Research Foundation to determine if geolocation determines human happiness.
+This project was created for CUNY Research Scholars Program to determine if geolocation determines human happiness.
 
+5/29/20
+Beta and master branch deprecated after several attempts for years I was not able to work around the limitation by not using databases and having a single static website.
 ## General Layout of this project:
  1. User types in keyword and a location(autocomplete included)
  2. Parsed form data is then sent to google maps api.
